@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from receipthandler import ReceiptHandler
+import json
 
 app = Flask(__name__)
 
@@ -7,8 +8,8 @@ rh = ReceiptHandler()
 
 @app.route('/receipts/process', methods=['POST'])
 def process_receipt_points():
-    receipt_data = request.json 
-    if not receipt_data:
+    receipt_data = request.json  
+    if not receipt_data: 
         return jsonify({"error": "No receipt data provided"}), 400
 
     receipt_id = rh.process_receipt(receipt_data)

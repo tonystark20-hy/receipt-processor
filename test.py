@@ -11,8 +11,7 @@ class ReceiptAPITestCase(unittest.TestCase):
 
     def test_process_receipt_points(self):
         # Simulate sending a valid POST request to /receipts/process
-        receipt_data = json.dumps(
-            {
+        receipt_data = {
             "retailer": "Target",
             "purchaseDate": "2022-01-01",
             "purchaseTime": "13:01",
@@ -35,19 +34,19 @@ class ReceiptAPITestCase(unittest.TestCase):
                 }
             ],
             "total": "35.35"
-            }
-        )
+        }
+        
         response = self.app.post('/receipts/process', 
                                  data=json.dumps(receipt_data), 
                                  content_type='application/json')
         response_data = response.data.decode('utf-8')
-        self.assertEqual(response.status_code, 200)
         data = json.loads(response_data)
+        self.assertEqual(response.status_code, 200)
         self.assertIn('id', data)
     
     def test_process_receipt_points_no_data(self):
         # Simulate sending a POST request with no data to /receipts/process
-        response = self.app.post('/receipts/process', data={}, content_type='application/json')
+        response = self.app.post('/receipts/process', data=json.dumps({}), content_type='application/json')
         response_data = response.data.decode('utf-8')
         self.assertEqual(response.status_code, 400)
         data = json.loads(response_data)
@@ -55,8 +54,7 @@ class ReceiptAPITestCase(unittest.TestCase):
 
     def test_get_receipt_points(self):
         # Simulate first creating a receipt, then fetching its points
-        receipt_data = json.dumps(
-            {
+        receipt_data = {
             "retailer": "Target",
             "purchaseDate": "2022-01-01",
             "purchaseTime": "13:01",
@@ -79,8 +77,8 @@ class ReceiptAPITestCase(unittest.TestCase):
                 }
             ],
             "total": "35.35"
-            }
-        )
+        }
+        
         process_response = self.app.post('/receipts/process',
                                          data=json.dumps(receipt_data),
                                          content_type='application/json')

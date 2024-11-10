@@ -9,7 +9,6 @@ class ReceiptHandler:
         pass
 
     def process_receipt(self, receipt_data):
-
         receipt_id = str(uuid.uuid4())  
         points = self.calculate_points(receipt_data)
         self.receipts[receipt_id] = points  
@@ -45,7 +44,7 @@ class ReceiptHandler:
             description = item.get("shortDescription", "").strip()
             if len(description) % 3 == 0:
                 item_price = float(item.get("price", 0))
-                points += round(item_price * 0.2)
+                points += math.ceil(item_price * 0.2)
 
         # Rule 6: 6 points if the day in the purchase date is odd
         purchase_date = receipt_data.get("purchaseDate", "")
