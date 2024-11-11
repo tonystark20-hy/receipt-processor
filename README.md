@@ -13,9 +13,12 @@ This service is built with Go and is containerized using Docker for easy deploym
 * Python 3.11
 
 ## Getting Started
-
+```
 docker build -t receipts-processor .
+```
+```
 docker run -p 8080:8080 receipt-processor
+```
 
 ## Process Receipts Endpoint
 
@@ -25,6 +28,7 @@ docker run -p 8080:8080 receipt-processor
 * Response: JSON containing an id for the receipt.
 
 ## Example Receipt JSON:
+```
 {
     "retailer": "M&M Corner Market",
     "purchaseDate": "2022-03-20",
@@ -46,13 +50,16 @@ docker run -p 8080:8080 receipt-processor
     ],
     "total": "9.00"
 }
+```
 
 ## Example Response:
+```
 {"id":"7211067a-fd67-4524-91d0-9ecd580f2b7f"}
+```
 
-400 error if Receipt JSON = {}
-400 error if purchase date format not in yyyy-mm-dd
-400 error if purchase time format not int hh:mm
+* 400 error if Receipt JSON = {}
+* 400 error if purchase date format not in yyyy-mm-dd
+* 400 error if purchase time format not int hh:mm
 
 ## Get Receipts Endpoint
 
@@ -61,11 +68,16 @@ docker run -p 8080:8080 receipt-processor
 * Response: A JSON object containing the number of points awarded.
 
 ## Example Response:
+```
 {"points":28}
-404 error if no matching id
+```
+
+* 404 error if no matching id
 
 ## Testing
 
 DockerFile will automatically test tests/test.py 
 to run manually:
+```
 python -m unittest discover -s tests
+```
