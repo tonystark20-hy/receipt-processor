@@ -12,8 +12,12 @@ def process_receipt_points():
     if not receipt_data: 
         return jsonify({"error": "No receipt data provided"}), 400
 
-    receipt_id = rh.process_receipt(receipt_data)
+    receipt_id, message = rh.process_receipt(receipt_data)
+    if message != "success":
+        return jsonify({"error": message}), 400
+    
     return jsonify({"id": receipt_id}), 200
+
 
 @app.route('/receipts/<receipt_id>/points', methods=['GET'])
 def get_receipt_points(receipt_id):

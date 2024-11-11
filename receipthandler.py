@@ -9,10 +9,12 @@ class ReceiptHandler:
         pass
 
     def process_receipt(self, receipt_data):
+        points, message = self.calculate_points(receipt_data)
+        if message != "success":
+            return -1, message
         receipt_id = str(uuid.uuid4())  
-        points = self.calculate_points(receipt_data)
         self.receipts[receipt_id] = points  
-        return receipt_id
+        return receipt_id, message
         pass
 
     def get_points(self, receipt_id):
@@ -21,6 +23,7 @@ class ReceiptHandler:
 
     def calculate_points(self, receipt_data):
         points = 0
+        message = "success"
 
         # Rule 1: 1 point for every alphanumeric character in the retailer name
         retailer = receipt_data.get("retailer", "")
@@ -53,15 +56,17 @@ class ReceiptHandler:
             if date_obj.day % 2 != 0:
                 points += 6
         except ValueError:
+            message = "Purchase date format error"
             pass  
 
         # Rule 7: 10 points if the purchase was made after 2:00 PM and before 4:00 PM
         purchase_time = receipt_data.get("purchaseTime", "")
         try:
             time_obj = datetime.strptime(purchase_time, "%H:%M")
-            if time_obj.hour == 14 or time_obj.hour == 15 or (time_obj.hour == 16 and time_obj.minute == 0):
+            if time_obj.hour == 14 or time_obj.hour == 15:
                 points += 10
         except ValueError:
+            message = "Purchase time format error"
             pass  
 
-        return points
+        return points, message
