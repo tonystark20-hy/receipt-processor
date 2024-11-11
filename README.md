@@ -4,8 +4,8 @@
 
 The Receipt Processor is a web service that processes receipt data and calculates points based on specific rules. The service provides two main endpoints:
 
-/receipts/process: Accepts receipt data and returns an ID for the processed receipt.
-/receipts/{id}/points: Returns the number of points awarded for a receipt given its ID.
+* /receipts/process: Accepts receipt data and returns an ID for the processed receipt.
+* /receipts/{id}/points: Returns the number of points awarded for a receipt given its ID.
 
 This service is built with Python and is containerized using Docker for easy deployment and testing.
 
