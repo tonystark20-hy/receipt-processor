@@ -5,8 +5,9 @@
 The Receipt Processor is a web service that processes receipt data and calculates points based on specific rules. The service provides two main endpoints:
 
 /receipts/process: Accepts receipt data and returns an ID for the processed receipt.
-/receipts/{id}/points: Returns the number of points awarded for a receipt given its ID.
-This service is built with Go and is containerized using Docker for easy deployment and testing.
+/receipts/{id}/points: Returns the number of points awarded for a receipt given its ID.\
+
+This service is built with Python and is containerized using Docker for easy deployment and testing.
 
 ## Requirements
 * Docker
@@ -76,7 +77,7 @@ docker run -p 8080:8080 receipt-processor
 
 ## Testing
 
-DockerFile will automatically test tests/test.py 
+DockerFile will automatically test tests/test.py.\
 to run manually:
 ```
 python -m unittest discover -s tests
