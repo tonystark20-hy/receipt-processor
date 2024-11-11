@@ -25,7 +25,7 @@ def get_receipt_points(receipt_id):
     if points is None:
         return jsonify({"error": "Receipt not found"}), 404
 
-    return jsonify({"id": receipt_id, "points": points}), 200
+    return jsonify({"points": points}), 200
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=8080)

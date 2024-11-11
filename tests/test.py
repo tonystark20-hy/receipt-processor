@@ -163,7 +163,6 @@ class ReceiptAPITestCase(unittest.TestCase):
         self.assertEqual(points_response.status_code, 200)
         points_response_data = points_response.data.decode('utf-8')
         points_data = json.loads(points_response_data)
-        self.assertEqual(points_data['id'], receipt_id)
         self.assertIn('points', points_data)
         self.assertEqual(points_data['points'], 28)
 
@@ -204,7 +203,6 @@ class ReceiptAPITestCase(unittest.TestCase):
         self.assertEqual(points_response.status_code, 200)
         points_response_data = points_response.data.decode('utf-8')
         points_data = json.loads(points_response_data)
-        self.assertEqual(points_data['id'], receipt_id)
         self.assertIn('points', points_data)
         self.assertEqual(points_data['points'], 109)
 
